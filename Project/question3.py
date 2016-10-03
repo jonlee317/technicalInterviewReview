@@ -10,14 +10,23 @@
 
 def question3(G):
     nodeList = []
+    # naively iterating through all items
     for item in G:
         for val in G[item]:
-            print val
+            print val[1]
 
-myGraph = {'A': [('B',4), ('C',2)],
+# test cases
+myGraph1 = {'A': [('B',4), ('C',2)],
             'B': [('A',4), ('D',3)],
             'C': [('A',2), ('D',5)],
             'D': [('B',3),('C',5)]
 }
 
-question3(myGraph)
+myGraph2 = {'A': [('B',4), ('C',2)],
+            'B': [('A',4), ('C',1), ('D',3)],
+            'C': [('A',2), ('B',1), ('D',5)],
+            'D': [('B',3),('C',5)]
+}
+
+question3(myGraph1)
+#question3(myGraph2)
