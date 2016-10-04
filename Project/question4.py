@@ -51,11 +51,11 @@ def question4(T, r, n1, n2):
 
         traveled.append(subTraveled)
 
-    # TODO: if the level of one child is lower than the other move them up
-    #       until they are at the same level and check if the parent is the same
-    #       if the parent is the same then we are done.  if they are not the same
-    #       then we move them both up at the same time and check if the parent is the same
-    #       we keep repeating this step until the parent is the same
+    # Strategy: if the level of one child is lower than the other move them up
+    #   until they are at the same level and check if the parent is the same
+    #   if the parent is the same then we are done.  if they are not the same
+    #   then we move them both up at the same time and check if the parent is the same
+    #   we keep repeating this step until the parent is the same
 
     n1_curr = n1
     n2_curr = n2
@@ -102,3 +102,21 @@ n2_2 = 2
 # answer should be 0
 
 print question4(T2, r2, n1_2, n2_2)
+
+
+# Test Case 3
+T3 = [[0, 1, 0, 0, 1, 0, 0, 0],
+     [0, 0, 1, 1, 0, 0, 0, 0],
+     [0, 0, 0, 0, 0, 0, 1, 1],
+     [0, 0, 0, 0, 0, 0, 0, 0],
+     [0, 0, 0, 0, 0, 1, 0, 0],
+     [0, 0, 0, 0, 0, 0, 0, 0],
+     [0, 0, 0, 0, 0, 0, 0, 0],
+     [0, 0, 0, 0, 0, 0, 0, 0]]
+r3 = 0
+n1_3 = 7
+n2_3 = 6
+
+# answer should be 2
+
+print question4(T3, r3, n1_3, n2_3)
