@@ -24,24 +24,32 @@
 #
 
 def question4(T, r, n1, n2):
-    least_common_ancestor = r
-    nextList = [r]
-    traveled =[r]
-    parent_child = {}
-    level = 0
-    while len(nextList) > 0:
-        level += 1
-        current = nextList.pop()
-        #print current
-        subTraveled = []
-        for i in range(len(T[current])):
-            if T[current][i] == 1:
-                subTraveled.append((current,i))
-                parent_child[i] = current
-                nextList.append(i)
+    least_common_ancestor = r   # initializing least common ancestor to the root
 
-        if len(subTraveled) > 0:
-            traveled.append(subTraveled)
+    child_parent = {}   # creating a dictionary to hold each child's parent
+    child_level = {}    # creating a dictionary to hold each child's level
+
+    nextList = [r]  # The list of items which will be iterated through in a queue
+
+    # for debug purpose just checking to see where we traveled
+    traveled =[r]
+    level = 0
+
+    # looping through the tree
+    while len(nextList) > 0:
+        current = nextList.pop()
+        subTraveled = []
+        # only check each parent's child if it actually has a child
+        if sum(T[current]) > 0:
+            level +=1
+            for i in range(len(T[current])):
+                if T[current][i] == 1:
+                    subTraveled.append((current,i))
+                    child_level[i] = level
+                    child_parent[i] = current
+                    nextList.append(i)
+
+        traveled.append(subTraveled)
 
     # TODO: if the level of one child is lower than the other move them up
     #       until they are at the same level and check if the parent is the same
@@ -49,11 +57,20 @@ def question4(T, r, n1, n2):
     #       then we move them both up at the same time and check if the parent is the same
     #       we keep repeating this step until the parent is the same
 
-    print traveled
-    print parent_child
-    n1_path = n1
-    n2_path = n2
-    #while parent_child[n1] != parent_child[n1]:
+    n1_curr = n1
+    n2_curr = n2
+
+    while child_parent[n1_curr] != child_parent[n2_curr]:
+        if child_level[n1_curr] > child_level[n2_curr]:
+            n1_curr = child_parent[n1_curr]
+        elif child_level[n2_curr] > child_level[n1_curr]:
+            n2_curr = child_parent[n2_curr]
+        else:
+            n1_curr = child_parent[n1_curr]
+            n2_curr = child_parent[n2_curr]
+
+    if child_parent[n1_curr] == child_parent[n2_curr]:
+        least_common_ancestor = child_parent[n1_curr]
 
     return least_common_ancestor
 
@@ -70,7 +87,7 @@ n2_1 = 4
 
 # answer should be 3
 
-question4(T1, r1, n1_1, n2_1)
+print question4(T1, r1, n1_1, n2_1)
 
 # Test Case 2
 T2 = [[0, 1, 1, 0, 0],
@@ -84,4 +101,4 @@ n2_2 = 2
 
 # answer should be 0
 
-question4(T2, r2, n1_2, n2_2)
+print question4(T2, r2, n1_2, n2_2)
