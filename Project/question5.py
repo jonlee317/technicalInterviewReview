@@ -12,12 +12,47 @@ class Node(object):
         self.next = None
 
 class LinkedList(object):
-    def __init__(self, head):
+    def __init__(self, head=None):
         self.head = head
-        self.next = None
+
+    def append(self, new_node):
+        current = self.head
+        if self.head:
+            while current.next:
+                current = current.next
+            current.next = new_node
+        else:
+            self.head = new_node
+
+    def get_position(self, position):
+        """Get an element from a particular position.
+        Assume the first position is "1".
+        Return "None" if position is not in the list."""
+        current = self.head
+        count = 1
+        if self.head:
+            while count < position:
+                count += 1
+                current = current.next
+        return current
 
 def question5(ll, m):
     pass
+
+# define a few nodes
+n1 = Node(13)
+n2 = Node(21)
+n3 = Node(35)
+n4 = Node(49)
+
+# Create linked list
+ll = LinkedList(n1)
+ll.append(n2)
+ll.append(n3)
+ll.append(n4)
+
+print ll.get_position(0).data
+
 # TODO:  figure out what is the rule of this question.  are we supposed to create
 # our own linked list and add items to it and test it?
 
