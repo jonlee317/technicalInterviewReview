@@ -37,7 +37,25 @@ class LinkedList(object):
         return current
 
 def question5(ll, m):
-    pass
+    count = 1
+    current = ll
+    if ll:
+        while current.next:
+            count += 1
+            current = current.next
+    print (count)
+    desired_position = count+1-m
+
+    current = ll
+    count = 1
+    if ll:
+        while current.next and count < desired_position:
+            count += 1
+            current = current.next
+
+    return current.data
+
+
 
 # define a few nodes
 n1 = Node(13)
@@ -51,11 +69,11 @@ ll.append(n2)
 ll.append(n3)
 ll.append(n4)
 
-print ll.get_position(0).data
+print (ll.get_position(0).data)
 
 # TODO:  figure out what is the rule of this question.  are we supposed to create
 # our own linked list and add items to it and test it?
 
 # Test case
 #ll1
-#print question5()
+print (question5(ll.get_position(0), 2))
