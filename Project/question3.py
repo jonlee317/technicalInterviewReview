@@ -9,11 +9,31 @@
 # Vertices are represented as unique strings. The function definition should be question3(G)
 
 def question3(G):
-    nodeList = []
+    nodeList = [[0,'A']]
+
+    print G
     # naively iterating through all items
-    for item in G:
-        for val in G[item]:
-            print val[1]
+    traveled = {item: 0 for item in G}
+    minTree = {item: [] for item in G}
+    while len(nodeList) > 0:
+        val = nodeList.pop(0)
+        traveled[val[1]] = 1
+        for item in G[val[1]]:
+            if traveled[item[0]] == 0:
+                nodeList.append([item[1],item[0]])
+                #traveled[item[0]] = 1
+        nodeList = sorted(nodeList)
+        print "hi"
+        print nodeList
+        if len(nodeList) >0:
+            minTree[val[1]].append(nodeList[0])
+            minTree[nodeList[0][1]].append([val[1],nodeList[0][0]])
+
+    # TODO: able to go through each node but unable to tell which value belongs
+    # to which node.  also able to choose the lowest value each time but does not know
+    # which it is from 
+    print traveled
+    print minTree
 
 # test cases
 myGraph1 = {'A': [('B',4), ('C',2)],
