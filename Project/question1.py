@@ -46,6 +46,11 @@ def question1(s, t):
 		return True
 	else:
 		return False
-  
-# testcode
+
+# Testcases
 print(question1("udacity", "yit"))
+print(question1("jumanji", "naj"))
+print(question1("jumanji", "muj"))
+print(question1("udacity", "udc"))
+print(question1("superman", "rem"))
+print(question1("superman", "nar"))
