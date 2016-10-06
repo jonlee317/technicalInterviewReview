@@ -11,7 +11,6 @@
 def question3(G):
     nodeList = [[0,'A']]
 
-    print G
     # naively iterating through all items
     traveled = {item: 0 for item in G}
     minTree = {item: [] for item in G}
@@ -21,20 +20,13 @@ def question3(G):
         for item in G[val[1]]:
             if traveled[item[0]] == 0 or traveled[val[1]]==0:
                 nodeList.append([item[1],item[0],val[1]])
-                #traveled[item[0]] = 1
         nodeList = sorted(nodeList)
-        print "hi"
-        print nodeList
+
         if len(nodeList) >0 and (traveled[nodeList[0][2]] == 0 or traveled[nodeList[0][1]]==0):
-            #minTree[val[1]].append(nodeList[0])
             minTree[nodeList[0][2]].append([nodeList[0][1],nodeList[0][0]])
             minTree[nodeList[0][1]].append([nodeList[0][2],nodeList[0][0]])
 
-    # TODO: able to go through each node but unable to tell which value belongs
-    # to which node.  So need ability to save from where to where.  It already has
-    # strategy of choosing the min.
-    print traveled
-    print minTree
+    return minTree
 
 # test cases
 myGraph1 = {'A': [('B',4), ('C',2)],
@@ -49,5 +41,14 @@ myGraph2 = {'A': [('B',4), ('C',2)],
             'D': [('B',3),('C',5)]
 }
 
-#question3(myGraph1)
-question3(myGraph2)
+myGraph3 = {'A': [('B',4), ('C',3), ('D',1)],
+            'B': [('A',4), ('F',1)],
+            'C': [('A',3), ('D',5)],
+            'D': [('E',2),('C',5)],
+            'E': [('D',2),('F',1)],
+            'F': [('B',1),('E',1)],
+}
+
+print(question3(myGraph1))
+print(question3(myGraph2))
+print(question3(myGraph3))
