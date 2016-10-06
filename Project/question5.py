@@ -25,37 +25,34 @@ class LinkedList(object):
             self.head = new_node
 
     def get_position(self, position):
-        """Get an element from a particular position.
-        Assume the first position is "1".
-        Return "None" if position is not in the list."""
         current = self.head
         count = 1
         if self.head:
             while count < position:
                 count += 1
                 current = current.next
+        else:
+            current = None
         return current
 
 def question5(ll, m):
     count = 1
     current = ll
+    # This loop will find the desired position
     if ll:
         while current.next:
             count += 1
             current = current.next
-    print (count)
     desired_position = count+1-m
 
+    # This loop will find and return the value at the desired position
     current = ll
     count = 1
     if ll:
         while current.next and count < desired_position:
             count += 1
             current = current.next
-
     return current.data
-
-
 
 # define a few nodes
 n1 = Node(13)
@@ -69,11 +66,26 @@ ll.append(n2)
 ll.append(n3)
 ll.append(n4)
 
-print (ll.get_position(0).data)
-
-# TODO:  figure out what is the rule of this question.  are we supposed to create
-# our own linked list and add items to it and test it?
-
-# Test case
-#ll1
+# Test Case 1
 print (question5(ll.get_position(0), 2))
+
+# define a few more nodes
+n1 = Node(3)
+n2 = Node(21)
+n3 = Node(3)
+n5 = Node(9)
+n6 = Node(33)
+n7 = Node(4)
+
+# Create linked list
+ll1 = LinkedList(n1)
+ll1.append(n2)
+ll1.append(n3)
+ll1.append(n4)
+ll1.append(n5)
+ll1.append(n6)
+ll1.append(n7)
+
+# Test Case 2 and 3
+print (question5(ll.get_position(0), 6))
+print (question5(ll.get_position(0), 3))
