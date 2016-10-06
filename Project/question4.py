@@ -31,25 +31,19 @@ def question4(T, r, n1, n2):
 
     nextList = [r]  # The list of items which will be iterated through in a queue
 
-    # for debug purpose just checking to see where we traveled
-    traveled =[r]
     level = 0
 
     # looping through the tree
     while len(nextList) > 0:
         current = nextList.pop()
-        subTraveled = []
         # only check each parent's child if it actually has a child
         if sum(T[current]) > 0:
             level +=1
             for i in range(len(T[current])):
                 if T[current][i] == 1:
-                    subTraveled.append((current,i))
                     child_level[i] = level
                     child_parent[i] = current
                     nextList.append(i)
-
-        traveled.append(subTraveled)
 
     # Strategy: if the level of one child is lower than the other move them up
     #   until they are at the same level and check if the parent is the same
