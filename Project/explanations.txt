@@ -2,11 +2,11 @@
 
 # Question 1
 
-Goal of this problem is to determine whether a anagram (t) is an substring of a string (s) 
+Goal of this problem is to determine whether a anagram (t) is an substring of a string (s)
 
 Methodology:
 1)  Find the length of the substring and the total string
-2)  Create and initialize a check list the length of the substring so that we can check off as each character is found
+2)  Create and initialize a check list the length of the substring and check off as each character is found
 3)  Break the total string into subsegments the same length of the substring starting from the first letter of the string
   e.g. if the string is 'udacity' and the substring we want to search for is 'ad'
        then we first compare 'ad' with 'ud' (which is the first subsegment of 'udacity')
@@ -18,17 +18,72 @@ Methodology:
 9)  Repeat steps 4-8 until we reach the end of the string or we have found an anagram
 
 Complexity Analysis:
-Assume t is length of substring
-Assume s is length of string
-
-If the substring is one letter and at the end of the string
-then we have to loop through each letter of the string once
-and in addition for each of the letter we loop through one letter once
-
-Which gives about O(n) time
-
-worse case is possibly substring equal to the length of the string
-Therefore loop through each letter n times which is O(n^2)
+Worse case:  O(n^2)  # need to doublecheck list comprehension
+Best case:  O(n)
 
 Space complexity
 # TODO:  need to finish this
+
+
+# Question 2
+# GOAL:  To find the longest palindromic substring in a string
+
+Methodology:
+1)  Define a helper function which can find two matching characters
+2)  Recurse this function to find matching letters with increasing and decreasing index
+e.g.  If we have a pattern  dcbaabcd
+
+This function will first find aa then the outer bb, then outer cc and finally
+the last pair of dd.  The function is also implemented to print it out in the same manner
+by pre and post-pending to the string
+
+The same function can also detect a dcbabcd pattern with minor tweak and different inputString
+
+3)  A loop is created to slide through string to find the initial aa or bab patterns.
+4)  Once found, then the findMatch function is recursed until the whole pattern is printed
+5)  Return the printed string to the outputStringList
+
+# TODO: complexity analysis
+Worse Case
+
+
+# Question 3
+# Find the Minimum Spanning Tree (MST)
+Methodology:
+1) Start from node A in a queue (Can be any node but just choosing A)
+2) Remove node from queue mark node traveled to
+3) Add distance, neighbor and current to the queue
+4) Sort this queue (based on shortest distance)
+5) If this list is not empty and neighbor has not been traveled to yet
+6) Add this neighbor and distance to the minimum tree
+7) repeat step 2-6 by popping out the shortest distance
+8) Stop when all the nodes have been traveled to
+9) Return the minimum tree
+
+# TODO: complexity analysis
+
+# Question 4
+# Find the least common ancestor between two nodes on a BST
+
+Methodology:
+1)  Create container to hold each child's parent
+2)  Create container to hold each child's level
+3)  Create a list of items to loop through starting with the root
+4)  Count the number of ones for each parent/child
+5)  Only need to loop through each possible connection if the parent actually has a child_parent
+6)  Record the child's level and parent
+7)  Add the child to the list to become a possible parent
+8)  Then starting from the lowest level/child
+9)  Until we find a matching parent for two children we move back up the tree
+10)  Return the parent as the least_common_ancestor
+
+# TODO: complexity analysis
+
+# Question 5
+1)  Created a dummy linked list to test the function
+2)  Loop through the data once to count total number of nodes
+3)  Subtract the desired position from end from the total number of nodes
+4)  Loop through the list again until desired position is reached
+5)  return the value
+
+# TODO:  complexity analysis
