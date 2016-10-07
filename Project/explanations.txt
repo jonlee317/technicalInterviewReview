@@ -24,11 +24,12 @@ because it was the most straightforward and logical method.  If during an interv
 sense to go with the most straightforward approach which is better than no answer.
 
 Complexity Analysis:
-Worse case:  O(n^2)  # need to doublecheck list comprehension
-Best case:  O(n)
+Given s is length of string and t is length of anagram
+We can approximate the time complexity as follows O((s-t)(t**2)+(s-t)*t + t)
+This means that if the shorter the anagram relative to the string, the more efficient approximately O(n).  If the anagram is the same length of the string then we reach approximately O(n**2).  However worse case would be if the anagram is exactly half the size of the string, then we can reach up to O(n**3).  So, on average this algorithm is not very efficient.
 
-Space complexity
-# TODO:  need to finish this
+We can approxmately the space complexity as follows  O(s+t)
+Since we are simply just saving multiple lists in linear space for both strings
 
 
 # Question 2
