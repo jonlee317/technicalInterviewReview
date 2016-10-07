@@ -17,6 +17,12 @@ Methodology:
 8)  If we did not find the anagram yet, then we have to clear the match_list and look at the next substring which is "da" in this case
 9)  Repeat steps 4-8 until we reach the end of the string or we have found an anagram
 
+Decided to first start simple and do a more brute force strategy to solving this problem.  This strategy
+was basically just loop through each subsection and compare each letter of the substring with each letter of
+the subsection.  Then using the checklist we can determine if all the characters matched or not.  This was chosen
+because it was the most straightforward and logical method.  If during an interview with time constraint it makes
+sense to go with the most straightforward approach which is better than no answer.
+
 Complexity Analysis:
 Worse case:  O(n^2)  # need to doublecheck list comprehension
 Best case:  O(n)
@@ -44,8 +50,8 @@ The same function can also detect a dcbabcd pattern with minor tweak and differe
 5)  Return the printed string to the outputStringList
 
 # TODO: complexity analysis
-Worse Case
-
+Worse Case:  O(n)
+Best Case: O(n)
 
 # Question 3
 # Find the Minimum Spanning Tree (MST)
@@ -61,6 +67,8 @@ Methodology:
 9) Return the minimum tree
 
 # TODO: complexity analysis
+Worse case:  O(n^2)
+
 
 # Question 4
 # Find the least common ancestor between two nodes on a BST
@@ -78,6 +86,7 @@ Methodology:
 10)  Return the parent as the least_common_ancestor
 
 # TODO: complexity analysis
+O(n^2)
 
 # Question 5
 1)  Created a dummy linked list to test the function
@@ -87,3 +96,4 @@ Methodology:
 5)  return the value
 
 # TODO:  complexity analysis
+O(n^2)
