@@ -9,7 +9,10 @@
 # Vertices are represented as unique strings. The function definition should be question3(G)
 
 def question3(G):
-    nodeList = [[0,'A']]
+    if len(G) > 0:
+        nodeList = [[0,G.keys()[0]]]
+    else:
+        nodeList = []
 
     # naively iterating through all items
     traveled = {item: 0 for item in G}
@@ -49,6 +52,17 @@ myGraph3 = {'A': [('B',4), ('C',3), ('D',1)],
             'F': [('B',1),('E',1)],
 }
 
+myGraph4 = {}
+
+print("---- Test Cases for question 3 ----")
 print(question3(myGraph1))
+# {'A': [['C', 2], ['B', 4]], 'C': [['A', 2]], 'B': [['A', 4], ['D', 3]], 'D': [['B', 3]]}
+
 print(question3(myGraph2))
+# {'A': [['C', 2]], 'C': [['A', 2], ['B', 1]], 'B': [['C', 1], ['D', 3]], 'D': [['B', 3]]}
+
 print(question3(myGraph3))
+# {'A': [['D', 1], ['C', 3]], 'C': [['A', 3]], 'B': [['F', 1]], 'E': [['D', 2], ['F', 1]], 'D': [['A', 1], ['E', 2]], 'F': [['E', 1], ['B', 1]]}
+
+print(question3(myGraph4))
+# {}
