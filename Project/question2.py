@@ -34,7 +34,7 @@ def question2(a):
 		finalIndex += 1
 
 		# if there is nothing in the list simply append
-		if len(outputStringList) ==0:
+		if len(outputStringList) == 0:
 			outputStringList.append(outputString_type1)
 			outputStringList.append(outputString_type2)
 		# If there is something in the list place longer string in front else append
@@ -51,11 +51,32 @@ def question2(a):
 		outputString_type1 = ""
 		outputString_type2 = ""
 
-	return outputStringList[0]
+	if len(outputStringList) > 0:
+		# Since palindrome will never be one character
+		if len(outputStringList[0]) > 1:
+			return outputStringList[0]
+		else:
+			return ""
+	else:
+		return ""
 
-# test code
+# Test Cases
+print("---- Test Cases for question 2 ----")
 print(question2('zeabxbaezcc'))
+# zeabxbaez
 print(question2("bloblobbor"))
+# obbo
 print(question2("racecar"))
+# racecar
 print(question2("bloblobbbor"))
+# obbbo
 print(question2("feffzracecarefz"))
+# racecar
+print(question2(""))
+# ""
+print(question2("feffzrasdfdasflijdasfldfjshagwoghioiwehofhasdfljacecarefz"))
+# aceaca
+print(question2("abcdefghijk"))
+# ""    <-- nothing since there is no palinrome
+print(question2("abcdeffghijk"))
+# ff
