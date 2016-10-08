@@ -37,36 +37,39 @@ def question4(T, r, n1, n2):
     while len(nextList) > 0:
         current = nextList.pop()
         # only check each parent's child if it actually has a child
-        if sum(T[current]) > 0:
-            level +=1
-            for i in range(len(T[current])):
-                if T[current][i] == 1:
-                    child_level[i] = level
-                    child_parent[i] = current
-                    nextList.append(i)
+        if len(T) > 0: # check if there is even anything in the T
+            if sum(T[current]) > 0:
+                level +=1
+                for i in range(len(T[current])):
+                    if T[current][i] == 1:
+                        child_level[i] = level
+                        child_parent[i] = current
+                        nextList.append(i)
 
     # Strategy: if the level of one child is lower than the other move them up
     #   until they are at the same level and check if the parent is the same
     #   if the parent is the same then we are done.  if they are not the same
     #   then we move them both up at the same time and check if the parent is the same
     #   we keep repeating this step until the parent is the same
+    if len(T) >0:
+        n1_curr = n1
+        n2_curr = n2
 
-    n1_curr = n1
-    n2_curr = n2
+        while child_parent[n1_curr] != child_parent[n2_curr]:
+            if child_level[n1_curr] > child_level[n2_curr]:
+                n1_curr = child_parent[n1_curr]
+            elif child_level[n2_curr] > child_level[n1_curr]:
+                n2_curr = child_parent[n2_curr]
+            else:
+                n1_curr = child_parent[n1_curr]
+                n2_curr = child_parent[n2_curr]
 
-    while child_parent[n1_curr] != child_parent[n2_curr]:
-        if child_level[n1_curr] > child_level[n2_curr]:
-            n1_curr = child_parent[n1_curr]
-        elif child_level[n2_curr] > child_level[n1_curr]:
-            n2_curr = child_parent[n2_curr]
-        else:
-            n1_curr = child_parent[n1_curr]
-            n2_curr = child_parent[n2_curr]
+        if child_parent[n1_curr] == child_parent[n2_curr]:
+            least_common_ancestor = child_parent[n1_curr]
 
-    if child_parent[n1_curr] == child_parent[n2_curr]:
-        least_common_ancestor = child_parent[n1_curr]
-
-    return least_common_ancestor
+        return least_common_ancestor
+    else:
+        return ""
 
 # Test code
 # Test Case 1
@@ -114,3 +117,10 @@ n2_3 = 6
 # answer should be 2
 
 print question4(T3, r3, n1_3, n2_3)
+
+# Test Case 4
+T4 = []
+r4 = 0
+n1_4 = 7
+n2_4 = 6
+print question4(T4, r4, n1_4, n2_4)
