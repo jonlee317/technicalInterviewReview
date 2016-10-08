@@ -48,9 +48,12 @@ def question1(s, t):
 		return False
 
 # Testcases
-print(question1("udacity", "yit"))
-print(question1("jumanji", "naj"))
-print(question1("jumanji", "muj"))
-print(question1("udacity", "udc"))
-print(question1("superman", "rem"))
-print(question1("superman", "nar"))
+print("---- Test Cases for question 1 ----")
+print(question1("udacity", "yit"))	#True
+print(question1("jumanji", "naj"))	#True
+print(question1("jumanji", "muj"))	#True
+print(question1("udacity", "udc"))	#False
+print(question1("superman", "rem"))	#True
+print(question1("superman", "nar"))	#False
+print(question1("", "nar"))			#False
+print(question1("nar", ""))			#True
