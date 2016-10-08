@@ -50,8 +50,10 @@ def question4(T, r, n1, n2):
     #   until they are at the same level and check if the parent is the same
     #   if the parent is the same then we are done.  if they are not the same
     #   then we move them both up at the same time and check if the parent is the same
-    #   we keep repeating this step until the parent is the same
-    if len(T) >0:
+    #   keep repeating this step until the parent is the same
+
+    # Added limit protection bounded between 0 and the length of the matrix
+    if len(T) > 0 and len(T) > n1 and n1>0 and len(T) >n2 and n2 >0:
         n1_curr = n1
         n2_curr = n2
 
@@ -68,10 +70,13 @@ def question4(T, r, n1, n2):
             least_common_ancestor = child_parent[n1_curr]
 
         return least_common_ancestor
+    elif n1 == 0 or n2 == 0:
+        return r
     else:
-        return ""
+        return None
 
 # Test code
+print("---- Test Cases for Question 4 ----")
 # Test Case 1
 T1 = [[0, 1, 0, 0, 0],
      [0, 0, 0, 0, 0],
@@ -82,10 +87,8 @@ r1 = 3
 n1_1 = 1
 n2_1 = 4
 
-# answer should be 3
-
 print question4(T1, r1, n1_1, n2_1)
-
+# 3
 # Test Case 2
 T2 = [[0, 1, 1, 0, 0],
      [0, 0, 0, 0, 0],
@@ -96,10 +99,8 @@ r2 = 3
 n1_2 = 1
 n2_2 = 2
 
-# answer should be 0
-
 print question4(T2, r2, n1_2, n2_2)
-
+# 0
 
 # Test Case 3
 T3 = [[0, 1, 0, 0, 1, 0, 0, 0],
@@ -117,10 +118,23 @@ n2_3 = 6
 # answer should be 2
 
 print question4(T3, r3, n1_3, n2_3)
+# 2
 
-# Test Case 4
+print question4(T3, r3, 6, 8)
+# None  ""out of bounds""
+
+print question4(T3, r3, 8, 6)
+# None  ""out of bounds""
+
+print question4(T3, r3, 0, 0)
+# 0   ""Since we are at the root""
+
+print question4(T3, r3, 0, -1)
+# None      ""Out of bounds""
+
 T4 = []
 r4 = 0
 n1_4 = 7
 n2_4 = 6
 print question4(T4, r4, n1_4, n2_4)
+# None  T4 is empty list
