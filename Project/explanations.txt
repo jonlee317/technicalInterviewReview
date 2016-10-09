@@ -1,21 +1,8 @@
-# This file explans the solutions provided in the solutions.py file
+# This file explains the solutions provided in the solutions.py file
 
 # Question 1
 
 Goal of this problem is to determine whether a anagram (t) is an substring of a string (s)
-
-Methodology:
-1)  Find the length of the substring and the total string
-2)  Create and initialize a check list the length of the substring and check off as each character is found
-3)  Break the total string into subsegments the same length of the substring starting from the first letter of the string
-  e.g. if the string is 'udacity' and the substring we want to search for is 'ad'
-       then we first compare 'ad' with 'ud' (which is the first subsegment of 'udacity')
-4)  Compare each letter in the substring with each letter in the chosen subsegment
-5)  If match is detected, we append a 1 into a match_list which was created
-6)  If the sum of all the matched characters equal to the length of the substring then we have found an anagram substring to be true
-7)  If we found anagram to be true, we break out of the loop and return True
-8)  If we did not find the anagram yet, then we have to clear the match_list and look at the next substring which is "da" in this case
-9)  Repeat steps 4-8 until we reach the end of the string or we have found an anagram
 
 Decided to first start simple and do a more brute force strategy to solving this problem.  This strategy
 was basically just loop through each subsection and compare each letter of the substring with each letter of
@@ -23,78 +10,60 @@ the subsection.  Then using the checklist we can determine if all the characters
 because it was the most straightforward and logical method.  If during an interview with time constraint it makes
 sense to go with the most straightforward approach which is better than no answer.
 
-Complexity Analysis:
+The complexity of this algorithm is a bit complicated since it depends on two inputs.
 Given s is length of string and t is length of anagram
 We can approximate the time complexity as follows O((s-t)(t**2)+(s-t)*t + t)
 This means that if the shorter the anagram relative to the string, the more efficient approximately O(n).  If the anagram is the same length of the string then we reach approximately O(n**2).  However worse case would be if the anagram is exactly half the size of the string, then we can reach up to O(n**3).  So, on average this algorithm is not very efficient.
 
-We can approxmately the space complexity as follows  O(s+t)
+We can approximately the space complexity as follows  O(s+t)
 Since we are simply just saving multiple lists in linear space for both strings
 
 
 # Question 2
-# GOAL:  To find the longest palindromic substring in a string
+# GOAL:  To find the longest palindromic substring in a string (a)
 
-Methodology:
-1)  Define a helper function which can find two matching characters
-2)  Recurse this function to find matching letters with increasing and decreasing index
-e.g.  If we have a pattern  dcbaabcd
+Used the same strategy as the previous problem where we loop through slide through each partition of the array.
+The only difference is that this time the pattern we look for is a fixed pattern which is either an
+aa or bab pattern.  As soon as the opening pattern has been detected then we recurse the function by
+looking if the neighbors also match.  I then rebuild the string matching the pattern and return that.
 
-This function will first find aa then the outer bb, then outer cc and finally
-the last pair of dd.  The function is also implemented to print it out in the same manner
-by pre and post-pending to the string
+The time complexity of this will vary mostly with what the hidden palindrome is.  At the very least
+this algorithm will function at linear time being the best case since we will have to loop through
+the whole string to find the initial pattern at least once.  It would seem that worse case would be
+if the entire string is a palindrome and a matching pattern is found at the center of the string.
+Then we would recurse through through half the string which would be about n/2.  Therefore the worse case
+would be approximately O(0.5*a**2), since after we loop through once we have to loop through halfway.
+While best case is O(a).
 
-The same function can also detect a dcbabcd pattern with minor tweak and different inputString
-
-3)  A loop is created to slide through string to find the initial aa or bab patterns.
-4)  Once found, then the findMatch function is recursed until the whole pattern is printed
-5)  Return the printed string to the outputStringList
-
-# TODO: complexity analysis
-Worse Case:  O(n)
-Best Case: O(n)
+Space complexity here would still be O(a) space since it is pretty much linear and there are no 2 dimension
+arrays required.
 
 # Question 3
 # Find the Minimum Spanning Tree (MST)
-Methodology:
-1) Start from node A in a queue (Can be any node but just choosing A)
-2) Remove node from queue mark node traveled to
-3) Add distance, neighbor and current to the queue
-4) Sort this queue (based on shortest distance)
-5) If this list is not empty and neighbor has not been traveled to yet
-6) Add this neighbor and distance to the minimum tree
-7) repeat step 2-6 by popping out the shortest distance
-8) Stop when all the nodes have been traveled to
-9) Return the minimum tree
 
-# TODO: complexity analysis
-Worse case:  O(n^2)
+The strategy here was to create an empty list where we would loop and travel through each vertex.
+Then I decided to use the built-in sort function to sort the list and append the object with minimum distance
+to the new list.  This way I did not have to reinvent the wheel.  The input to this function was assumed to be
+a dictionary.  Since we have to loop through each key in the direction and each key has a list.  The complexity is worse cases
+O(n**2).  The spacial complexity would also be O(n**2) since we also have to build a map of 2D.
 
 
 # Question 4
 # Find the least common ancestor between two nodes on a BST
 
-Methodology:
-1)  Create container to hold each child's parent
-2)  Create container to hold each child's level
-3)  Create a list of items to loop through starting with the root
-4)  Count the number of ones for each parent/child
-5)  Only need to loop through each possible connection if the parent actually has a child_parent
-6)  Record the child's level and parent
-7)  Add the child to the list to become a possible parent
-8)  Then starting from the lowest level/child
-9)  Until we find a matching parent for two children we move back up the tree
-10)  Return the parent as the least_common_ancestor
+Here the input is a matrix.  So, we have to loop through each line of the matrix (which corresponds to
+each node of the tree) and then loop through each possible neighbor.  This gives pretty much a O(n**2) complexity.
+But for storage here we only require a linear storage of O(n) since will be building a simple dictionary
+map to hold the parent and level.
 
-# TODO: complexity analysis
-O(n^2)
 
 # Question 5
-1)  Created a dummy linked list to test the function
-2)  Loop through the data once to count total number of nodes
-3)  Subtract the desired position from end from the total number of nodes
-4)  Loop through the list again until desired position is reached
-5)  return the value
+# find the position of a linked list based on the input of the head and number of elements away from tail
 
-# TODO:  complexity analysis
-O(n^2)
+Here we first had to build a linked list and then test the function.  Here we simply just
+loop through the data to count the nodes then subtract the total from the m to find the position
+relative to the end.  Then we loop to that position.  So here the worse case complexity
+is O(n**2) since if we choose the last node (m=0) then we loop through the list twice.  Best cases
+would be if the node chosen is the head then we would only loop through the list once and choose the
+beginning.  Finally space complexity is constant in this case since we do not store more or less space depending
+on the size of the linked list head input.
