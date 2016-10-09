@@ -54,6 +54,12 @@ myGraph3 = {'A': [('B',4), ('C',3), ('D',1)],
 
 myGraph4 = {}
 
+myGraph5 = {'A': [],
+            'B': [],
+            'C': [],
+            'D': []
+}
+
 print("---- Test Cases for question 3 ----")
 print(question3(myGraph1))
 # {'A': [['C', 2], ['B', 4]], 'C': [['A', 2]], 'B': [['A', 4], ['D', 3]], 'D': [['B', 3]]}
@@ -66,3 +72,6 @@ print(question3(myGraph3))
 
 print(question3(myGraph4))
 # {}
+
+print(question3(myGraph5))
+# {'A': [], 'C': [], 'B': [], 'D': []}
