@@ -51,19 +51,12 @@ O(n**2).  The spacial complexity would also be O(n**2) since we also have to bui
 # Question 4
 # Find the least common ancestor between two nodes on a BST
 
-Here the input is a matrix.  So, we have to loop through each line of the matrix (which corresponds to
-each node of the tree) and then loop through each possible neighbor.  This gives pretty much a O(n**2) complexity.
-But for storage here we only require a linear storage of O(n) since will be building a simple dictionary
-map to hold the parent and level.
+Here the input is a matrix, root, and two nodes.  Knowing that this is a BST, right numbers are larger than the root and left
+numbers are less than the root.  We can quickly conclude that once one number is less than the root and another is greater
+than the root, then the root is the least common ancestor.  We also know that if both points are less than root then the ancestory is also less than the root.  If both points are greater than the root then we know the least common ancestor is greater than the root.  So, we can iterate from top down to find the ancestor.  In the case of balanced tree we know that we only need to transverse the height of the tree which gives O(h).  But if the tree is unbalanced then we definitely have to transverse through all the nodes which gives worse case O(n) complexity.  Storage here is constant since we do not need to store any lists.
 
 
 # Question 5
 # find the position of a linked list based on the input of the head and number of elements away from tail
 
-Here we first had to build a linked list and then test the function.  Here we simply just
-loop through the data to count the nodes then subtract the total from the m to find the position
-relative to the end.  Then we loop to that position.  So here the worse case complexity
-is O(n**2) since if we choose the last node (m=0) then we loop through the list twice.  Best cases
-would be if the node chosen is the head then we would only loop through the list once and choose the
-beginning.  Finally space complexity is constant in this case since we do not store more or less space depending
-on the size of the linked list head input.
+Here we first had to build a linked list and then test the function.  Here we simply just loop through the data with two pointers, current_lead and current.  The current_lead pointer will lead about m times ahead of current.  So here the worse case complexity is O(n) since no matter what, we will have to loop through the list at least once. Finally, space complexity is constant (O(1)) since we do not store more or less space depending on the size of the linked list head input.
