@@ -221,7 +221,7 @@ print(question3(myGraph5))
 # {'A': [], 'C': [], 'B': [], 'D': []}
 
 # ------------------------------------ Question 4 -------------------------------------------
-#
+# 
 # Find the least common ancestor between two nodes on a binary search tree.
 # The least common ancestor is the farthest node from the root that is an ancestor of both nodes.
 # For example, the root is a common ancestor of all nodes on the tree,
@@ -246,57 +246,55 @@ print(question3(myGraph5))
 # and the answer would be 3.
 #
 
-def question4(T, r, n1, n2):
-    least_common_ancestor = r   # initializing least common ancestor to the root
-
-    child_parent = {}   # creating a dictionary to hold each child's parent
-    child_level = {}    # creating a dictionary to hold each child's level
-
-    nextList = [r]  # The list of items which will be iterated through in a queue
-
-    level = 0
-
-    # looping through the tree
-    while len(nextList) > 0:
-        current = nextList.pop()
-        # only check each parent's child if it actually has a child
-        if len(T) > 0: # check if there is even anything in the T
-            if sum(T[current]) > 0:
-                level +=1
-                for i in range(len(T[current])):
-                    if T[current][i] == 1:
-                        child_level[i] = level
-                        child_parent[i] = current
-                        nextList.append(i)
-
-    # Strategy: if the level of one child is lower than the other move them up
-    #   until they are at the same level and check if the parent is the same
-    #   if the parent is the same then we are done.  if they are not the same
-    #   then we move them both up at the same time and check if the parent is the same
-    #   keep repeating this step until the parent is the same
-
-    # Added limit protection bounded between 0 and the length of the matrix
-    if len(T) > 0 and len(T) > n1 and n1>0 and len(T) >n2 and n2 >0:
-        n1_curr = n1
-        n2_curr = n2
-
-        while child_parent[n1_curr] != child_parent[n2_curr]:
-            if child_level[n1_curr] > child_level[n2_curr]:
-                n1_curr = child_parent[n1_curr]
-            elif child_level[n2_curr] > child_level[n1_curr]:
-                n2_curr = child_parent[n2_curr]
+# Here we determine if the BST child is on the left or right
+def findChild(T, r):
+    right = None
+    left = None
+    for i in range(len(T[r])):
+        if T[r][i] == 1:
+            if i > r:
+                right = i
             else:
-                n1_curr = child_parent[n1_curr]
-                n2_curr = child_parent[n2_curr]
+                left = i
+    return left, right
 
-        if child_parent[n1_curr] == child_parent[n2_curr]:
-            least_common_ancestor = child_parent[n1_curr]
+# Here is the algorithm to find the least common ancenstor
 
-        return least_common_ancestor
-    elif n1 == 0 or n2 == 0:
+def leastCommonAncestor(T, r, n1, n2):
+    left, right = findChild(T,r)
+    # if there is no root then there's nothing
+    if r == None:
+        return None
+    
+    # If both numbers lie to the left of the root then we know the 
+    # answer has to be in the left tree
+    if (r > n1 and r > n2):
+        return leastCommonAncestor(T, left, n1, n2)
+    
+    # If both numbers lie to the right of the root then we know
+    # answer has to be in the right tree
+    if (r < n1 and r < n2):
+        return leastCommonAncestor(T, right, n1, n2)
+    
+    # in the desired case when one number is left and another is on right
+    # we return the root
+    return r
+
+def question4(T, r, n1, n2):
+    # If there is nothing then return nothing
+    if r == None:
+        return None
+    # if any of the numbers equal the root then simply return the root
+    if r == n1 or r == n2:
         return r
     else:
-        return None
+        # Only if the number is within range of the length
+        # we will iterate the least Common Ancestor Function
+        if n1 >= 0 and n1<len(T) and n2>=0 and n2<len(T):
+            return leastCommonAncestor(T,r,n1,n2)
+        else:
+            return None
+        
 
 # Test code
 print("---- Test Cases for Question 4 ----")
@@ -312,39 +310,41 @@ n2_1 = 4
 
 print question4(T1, r1, n1_1, n2_1)
 # 3
-# Test Case 2
-T2 = [[0, 1, 1, 0, 0],
-     [0, 0, 0, 0, 0],
-     [0, 0, 0, 0, 0],
-     [1, 0, 0, 0, 1],
-     [0, 0, 0, 0, 0]]
-r2 = 3
-n1_2 = 1
-n2_2 = 2
 
-print question4(T2, r2, n1_2, n2_2)
+print question4(T1, r1, 1, 0)
 # 0
 
 # Test Case 3
-T3 = [[0, 1, 0, 0, 1, 0, 0, 0],
-     [0, 0, 1, 1, 0, 0, 0, 0],
-     [0, 0, 0, 0, 0, 0, 1, 1],
-     [0, 0, 0, 0, 0, 0, 0, 0],
-     [0, 0, 0, 0, 0, 1, 0, 0],
-     [0, 0, 0, 0, 0, 0, 0, 0],
-     [0, 0, 0, 0, 0, 0, 0, 0],
-     [0, 0, 0, 0, 0, 0, 0, 0]]
-r3 = 0
-n1_3 = 7
-n2_3 = 6
+T3 = [[0, 1, 0, 0, 0, 0, 0, 0],
+     [1, 0, 1, 1, 0, 0, 0, 0],
+     [0, 1, 0, 0, 0, 0, 0, 0],
+     [0, 1, 0, 0, 1, 0, 0, 0],
+     [0, 0, 0, 1, 0, 1, 0, 0],
+     [0, 0, 0, 0, 1, 0, 1, 0],
+     [0, 0, 0, 0, 0, 1, 0, 1],
+     [0, 0, 0, 0, 0, 0, 1, 0]]
+r3 = 3
+
 
 # answer should be 2
 
-print question4(T3, r3, n1_3, n2_3)
-# 2
+print question4(T3, r3, 0, 2)
+# 1
 
-print question4(T3, r3, 6, 8)
-# None  ""out of bounds""
+print question4(T3, r3, 2, 5)
+# 3
+
+print question4(T3, r3, 1, 5)
+# 3
+
+print question4(T3, r3, 1, 2)
+# 1
+
+print question4(T3, r3, 11, 12)
+# None
+
+print question4(T3, r3, 7, 8)
+# None
 
 print question4(T3, r3, 8, 6)
 # None  ""out of bounds""
@@ -363,7 +363,7 @@ print question4(T4, r4, n1_4, n2_4)
 # None  T4 is empty list
 
 # ------------------------------------ Question 5 -------------------------------------------
-#
+# 
 # Find the element in a singly linked list that's m elements from the end.
 # For example, if a linked list has 5 elements, the 3rd element from the end is the 3rd element.
 # The function definition should look like question5(ll, m),
@@ -403,25 +403,21 @@ class LinkedList(object):
 def question5(ll, m):
     count = 1
     current = ll
+    current_lead = ll
     # This loop will find the desired position
     if ll:
-        while current.next:
+        # leading node starts first
+        while current_lead.next and count < m:
             count += 1
+            current_lead = current_lead.next
+        # Now move both
+        while current_lead.next:
             current = current.next
-    # Checking that the number m chosen is within the bounds of the linked list
-    if m < (count+1) and m >= 0:
-        desired_position = count+1-m
-    else:
-        desired_position = None
-
-    # This loop will find and return the value at the desired position
-    current = ll
-    count = 1
-    if ll and desired_position != None:
-        while current.next and count < desired_position:
-            count += 1
-            current = current.next
-        return current.data
+            current_lead = current_lead.next
+        if m <= (count) and m >= 0:
+            return current.data
+        else:
+            return None
     else:
         return None
 
@@ -446,6 +442,7 @@ print (question5(ll.get_position(0), 2))
 n1 = Node(311)
 n2 = Node(21)
 n3 = Node(3)
+n4 = Node(49)
 n5 = Node(9)
 n6 = Node(36)
 n7 = Node(4)
@@ -476,5 +473,4 @@ print (question5(ll1.get_position(0), -1))
 # None
 print (question5("",3))
 # None
-print (question5(ll1.get_position(0), ""))
-# None
+
