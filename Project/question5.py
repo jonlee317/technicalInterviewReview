@@ -38,25 +38,21 @@ class LinkedList(object):
 def question5(ll, m):
     count = 1
     current = ll
+    current_lead = ll
     # This loop will find the desired position
     if ll:
-        while current.next:
+        # leading node starts first
+        while current_lead.next and count < m:
             count += 1
+            current_lead = current_lead.next
+        # Now move both
+        while current_lead.next:
             current = current.next
-    # Checking that the number m chosen is within the bounds of the linked list
-    if m < (count+1) and m >= 0:
-        desired_position = count+1-m
-    else:
-        desired_position = None
-
-    # This loop will find and return the value at the desired position
-    current = ll
-    count = 1
-    if ll and desired_position != None:
-        while current.next and count < desired_position:
-            count += 1
-            current = current.next
-        return current.data
+            current_lead = current_lead.next
+        if m <= (count) and m >= 0:
+            return current.data
+        else:
+            return None
     else:
         return None
 
@@ -81,6 +77,7 @@ print (question5(ll.get_position(0), 2))
 n1 = Node(311)
 n2 = Node(21)
 n3 = Node(3)
+n4 = Node(49)
 n5 = Node(9)
 n6 = Node(36)
 n7 = Node(4)
@@ -110,6 +107,4 @@ print (question5(ll1.get_position(0), 0))
 print (question5(ll1.get_position(0), -1))
 # None
 print (question5("",3))
-# None
-print (question5(ll1.get_position(0), ""))
 # None
